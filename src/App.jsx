@@ -3,6 +3,7 @@ import Batsman from './Batsman'
 import Users from './Users';
 import Friends from './Friends';
 import Posts from './Posts';
+import Todos from './todos';
 import './App.css'
 import { Suspense } from 'react';
 
@@ -20,10 +21,17 @@ const fetchPosts = async() =>{
   return res.json();
 }
 
+const fetchTodos = async() =>{
+  const res = await fetch('https://jsonplaceholder.typicode.com/todos')
+  return res.json();
+}
+
 function App() {
 
   // const friendsPromise = fetchFriends();
   const postsPromise = fetchPosts();
+
+  const todosPromise = fetchTodos();
 
   function handleClick(){
     alert('I am clicked.')
@@ -43,9 +51,13 @@ function App() {
 
           <h3>Vite + React</h3>
 
-          <Suspense fallback={<h4>Post are coming.......... </h4>}>
-            <Posts postsPromise={postsPromise}></Posts>
+          <Suspense fallback={<h4>Todos Are Coming...</h4>}>
+              <Todos todosPromise={todosPromise}></Todos>
           </Suspense>
+
+          {/* <Suspense fallback={<h4>Post are coming.......... </h4>}>
+            <Posts postsPromise={postsPromise}></Posts>
+          </Suspense> */}
 
           {/* <Suspense fallback={<h3>Loading...</h3>}>
             <Users fetchUsers = {fetchUsers}></Users>
